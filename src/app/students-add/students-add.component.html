@@ -1,0 +1,57 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/students']"><mat-icon>list</mat-icon></a>
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="studentForm" (ngSubmit)="onFormSubmit()">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="First Name" formControlName="first_name"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!studentForm.get('first_name').valid && studentForm.get('first_name').touched">Please enter First Name</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Last Name" formControlName="last_name"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!studentForm.get('last_name').valid && studentForm.get('last_name').touched">Please enter Last Nmae</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+      <div class="form-group">
+        <div class="input-group">
+          <input matInput class="form-control" placeholder="Date of Birth (yyyy-mm-dd)" formControlName="date_of_birth"
+                 [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Select Class</mat-label>
+        <mat-select formControlName="classes_id">
+          <mat-option *ngFor="let cls of classes" [value]="cls.id">
+            {{cls.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="button-row">
+        <button type="submit" [disabled]="!studentForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+      </div>
+      <div class="button-row">
+        <p *ngIf="submitErr">
+        <span *ngFor='let error of submitErrMsg | keyvalue'>
+    		    {{error.key}} : {{error.value}} <br />
+    		</span>
+        </p>
+      </div>
+    </form>
+  </mat-card>
+</div>

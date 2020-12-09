@@ -1,0 +1,36 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/classes']"><mat-icon>list</mat-icon></a>
+  </div>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title><h2>{{cls.name}}</h2></mat-card-title>
+      <mat-card-subtitle>{{cls.code}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <dl>
+        <dt>Maximum Students:</dt>
+        <dd>{{cls.maximum_students}}</dd>
+        <dt>Class Status:</dt>
+        <dd>{{cls.status}}</dd>
+        <dt>Details:</dt>
+        <dd>{{cls.description}}</dd>
+        <dt>Updated At:</dt>
+        <dd>{{cls.updated_at | date}}</dd>
+      </dl>
+      <div>
+        <h3>Students List</h3>
+        <span *ngFor='let student of students'>
+        {{student.first_name}} {{student.last_name}} born on {{student.date_of_birth}} <br />
+        </span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-flat-button color="primary" [routerLink]="['/classes-edit', cls.id]"><mat-icon>edit</mat-icon></a>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,59 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/classes']"><mat-icon>list</mat-icon></a>
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="classForm" (ngSubmit)="onFormSubmit()">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Class Name" formControlName="name"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!classForm.get('name').valid && classForm.get('name').touched">Please enter Class Name</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Class Code" formControlName="code"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!classForm.get('code').valid && classForm.get('code').touched">Please enter Class Code</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Maximum Students" formControlName="maximum_students"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!classForm.get('maximum_students').valid && classForm.get('maximum_students').touched">Please enter Maximum Students</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Class Desc" formControlName="description"
+               [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!classForm.get('description').valid && classForm.get('description').touched">Please enter CLass Description</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Class status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let stat of CStatus" [value]="stat.name">
+            {{stat.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="button-row">
+        <button type="submit" [disabled]="!classForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+      </div>
+      <div class="button-row">
+        <p *ngIf="submitErr">
+        <span *ngFor='let error of submitErrMsg | keyvalue'>
+		    {{error.key}} : {{error.value}} <br />
+		</span>
+        </p>
+      </div>
+    </form>
+  </mat-card>
+</div>
